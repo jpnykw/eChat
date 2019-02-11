@@ -1,0 +1,57 @@
+body {
+    background: #FEFEFE;
+    text-align: center;
+
+    user-select: none;
+}
+
+a {
+    text-decoration: none;
+    color: #FEFEFE;
+}
+
+.center {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.lightleak {
+    background: url('../../asset/lightleak.png');
+    height: 100%;
+    width: 100%;
+
+    pointer-events: none;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    opacity: .14;
+    z-index: 1;
+}
+
+@keyframes hideToShow {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes showToHide {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.typekit.net/nyc0sje.css">
+
+        <link rel="stylesheet" href="../css/color.css">
+        <link rel="stylesheet" href="../css/main.css">
+
+        <link rel="stylesheet" href="../css/chat.css">
+
+        <title>eChat | Hello User</title>
+    </head>
+
+    <body>
+        <!-- effect -->
+        <div class="lightleak"></div>
+        <canvas id="canvas"></canvas>
+
+        <div id="share">
+            <p class="shadow"><i class="fab fa-twitter"></i></p>
+            <p class="shadow"><i class="fas fa-clipboard"></i></p>
+        </div>
+
+        <div id="output"></div>
+
+        <div id="input">
+            <textarea id="message" placeholder="message"></textarea>
+            <button class="shadow" id="cancel">cancel</button>
+            <button class="shadow" id="send">send</button>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script src="../js/graphic.js"></script>
+        <script src="../js/extention.js"></script>
+        <script src="../js/controller/chat.js"></script>
+    </body>
+</html>

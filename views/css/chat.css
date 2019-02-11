@@ -1,0 +1,168 @@
+#output {
+    height: 60%;
+    width: 900px;
+
+    transform: translateX(-50%);
+    position: absolute;
+    top: 50px;
+    left: 50%;
+
+    text-align: left;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#input {
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+}
+
+canvas {
+    pointer-events: none;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+textarea {
+    border: none;
+    resize: none;
+    border-bottom: solid 2px #E2E2E2;
+
+    height: 70px;
+    width: 900px;
+
+    background: white;
+
+    margin-bottom: 40px;
+
+    outline: none;
+}
+
+button {
+    border-radius: 40px;
+    border: none;
+
+    margin: 0 10px;
+    padding: 6px;
+    width: 130px;
+
+    font-family: filson-soft, sans-serif;
+    font-size: 22px;
+    color: #FFFFFF;
+
+    cursor: pointer;
+    outline: none;
+}
+
+button:first-child {
+    background: #E2E2E2;
+}
+
+button:last-child {
+    background: #1595F6;
+}
+
+#output .message {
+    position: relative;
+    bottom: 40px;
+    left: 70px;
+
+    font-size: 20px;
+
+    height: 45px;
+    overflow: auto;
+}
+
+#output .details {
+    position: relative;
+    bottom: 32px;
+    left: 70px;
+
+    font-size: 13px;
+
+    margin: 0;
+    padding: 0;
+}
+
+#output span {
+    display: inline-block;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+
+    position: relative;
+    left: 10px;
+    top: 20px;
+}
+
+#output div {
+    height: 80px;
+    width: 900px;
+
+    border-bottom: solid 2px #DBDBDB;
+
+    padding: 0;
+    margin-top: 30px;
+
+    color: #707070;
+
+    border-radius: 6px 6px 0 0;
+}
+
+#output div:nth-child(even) {
+    background: #F8F8F8;
+}
+
+#share {
+    transform: translateY(-50%);
+    position: absolute;
+    right: 50px;
+    top: 50%;
+}
+
+#share p {
+    background: #FEFEFE;
+
+    /* display: inline-block; */
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+
+    font-size: 28px;
+    color: #161616;
+
+    cursor: pointer;
+}
+
+#share i {
+    position: relative;
+    top: 16px;
+}
+
+#share i:nth-child(1) {
+    color: #38A1F3;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+
+    margin-left: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #DBDBDB;
+    border-radius: 20px;
+}
+
+/*
+@media screen and (max-height: 875px){
+    #output {
+        height: 400px;
+    }
+}
+*/

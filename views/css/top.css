@@ -1,0 +1,48 @@
+p {
+    font-family: filson-soft, sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+
+    color: #DBDBDB;
+    padding: 0;
+    margin: 0;
+
+    text-shadow: 0 3px 8px #00000011;
+}
+
+h1 {
+    font-family: itc-avant-garde-gothic-pro, sans-serif;
+    font-weight: 800;
+    font-size: 120px;
+
+    color: #313131;
+    padding: 0;
+    margin: 0;
+
+    text-shadow: 0 5px 8px #00000044;
+}
+
+button {
+    margin-top: 170px;
+    padding: 8px;
+
+    background: #1595F6;
+    color: #FEFEFE;
+
+    font-family: filson-soft, sans-serif;
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-size: 20px;
+
+    border-radius: 40px;
+    border: none;
+
+    outline: none;
+    width: 380px;
+
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: 600;
+}
