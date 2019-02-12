@@ -6,7 +6,7 @@ eChatスタートガイド（使い方）は[こちらへ](https://github.com/JP
 1. socket.ioをインストールします。  
 `npm install socket.io`  
 
-2. 次にクローン/ダウンロードしたディレクトリでターミナルを起動して実行します。  
+2. eChatを起動します。  
 `node index`  
 
 3. 最後にURLにアクセスします。  
