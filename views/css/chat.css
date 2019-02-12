@@ -59,7 +59,7 @@ button {
     outline: none;
 }
 
-button:first-child {
+button:nth-child(2) {
     background: #E2E2E2;
 }
 
