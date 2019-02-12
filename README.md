@@ -2,6 +2,11 @@
 
 eChatの使い方ガイドです。  
 不具合等ありましたらご連絡ください。  
+
+eChatはherokuで運用しているので、  
+30分間アクセスが無いとスリープ状態になります。  
+その際は起動に時間が多少かかります。  
+
 まずは手順に沿って部屋を作成してみましょう。
 
 #### 1. [トップページ](https://e-chat-jpnykw.herokuapp.com)に接続し `start now` をクリック  
@@ -20,7 +25,7 @@ eChatの使い方ガイドです。
 #### 3. - 2 認証されるとAcceptと表示されます。
 ![setup page](https://github.com/JPNYKW/eChat/blob/master/steps/step3-2.PNG)
 
-#### 3. - 3 パスワード違い、不正なアクセス等を行うとFailedと表示されます。
+#### 3. - 3 パスワードの不一致か、不正なアクセス等を行うとFailedと表示されます。
 ![setup page](https://github.com/JPNYKW/eChat/blob/master/steps/step3-3.PNG)
 
 #### 4. 接続が完了すると、入室ログが表示されます。これでチャットが使えます。
