@@ -4,8 +4,8 @@ const socketIO = require('socket.io');
 
 const serverSetting = (req, res) => {
     const url = req.url;
+    const path = `.${url}`;
     const tmp = url.split('.');
-    const path = '.' + url;
     const extension = tmp[tmp.length - 1];
 
     switch (extension) {
