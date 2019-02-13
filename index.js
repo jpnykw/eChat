@@ -4,7 +4,7 @@ const socketIO = require('socket.io');
 
 const serverSetting = (req, res) => {
     const url = req.url;
-    const path = `.${url}`;
+    const path = '.' + url;
     const tmp = url.split('.');
     const extension = tmp[tmp.length - 1];
 
@@ -37,39 +37,34 @@ const serverSetting = (req, res) => {
     }
 };
 
+const isExistenceRoom = room => {
+    const roomList = JSON.parse(fs.readFileSync('./json/room.json'));
+    return Object.keys(roomList).includes(room);
+};
+
 const server = http.createServer(serverSetting);
 const io = socketIO.listen(server);
 
 io.sockets.on('connection', socket => {
-    console.log('connect');
-
     socket.on('connected', input => {
         const data = input.main;
-        console.log(`[System Log] CONNECTED   =>   <${data.name}>`);
-        console.log(`[System Log] UNIQUE-ID   =>   <${socket.id}>`);
-        console.log(`[System Log]      ROOM   =>   <${data.room}>`);
-        console.log(`[System Log]       KEY   =>   <${data.key != null ? data.key : 'No Key'}>`);
+        console.log(`[System Log]    CONNECTED   =>   <${data.name}>`);
+        console.log(`[System Log]    UNIQUE-ID   =>   <${socket.id}>`);
+        console.log(`[System Log]         ROOM   =>   <${data.room}>`);
+        console.log(`[System Log]          KEY   =>   <${data.key != null ? data.key : 'No Key'}>`);
 
         // add to global user list
         const userList = JSON.parse(fs.readFileSync('./json/user.json'));
         userList[socket.id] = data;
-
-        console.log(userList);
 
         fs.writeFileSync('./json/user.json', JSON.stringify(userList));
 
         socket.join(data.room);
         io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: `${data.name} has connect.`});
 
-        // let room = JSON.parse(input.room)[data.room];
-        // room = Object.assign({binarist: false}, room);
-
-        // const roomList = JSON.parse(fs.readFileSync('./json/room.json'));
-
-        // console.log('room', input.room);
-        // let room = JSON.parse(input.room);
-
         fs.writeFileSync('./json/room.json', input.room);
+
+        console.log(`[System Log] ${'='.repeat(16)}`);
     });
 
     socket.on('disconnect',  () => {
@@ -83,6 +78,7 @@ io.sockets.on('connection', socket => {
             const roomList = JSON.parse(fs.readFileSync('./json/room.json'));
 
             if (roomList[userRoom].member.length == 1) {
+                console.log(`[System Log] DELETED-ROOM   =>   <${myself.room}>`)
                 delete roomList[userRoom];
             } else {
                 roomList[userRoom].member.splice(roomList[userRoom].member.indexOf(myself.name), 1);
@@ -100,10 +96,12 @@ io.sockets.on('connection', socket => {
         } catch (e) {
             console.log(`[Action Log] Some error in disconnect <${e.toString()}>`);
         };
+
+        console.log(`[System Log] ${'='.repeat(16)}`);
     });
 
     socket.on('submit', data => {
-        console.log(`[Action Log] Submitted by <${data.name}> message <${data.message}>`);
+        console.log(`[Action Log] Submitted by <${data.name}> in <${data.room}> message <${data.message}>`);
 
         data.headline = 'message';
         io.sockets.to(data.room).emit('submit', data);
@@ -133,19 +131,20 @@ io.sockets.on('connection', socket => {
 
             // send
             io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: 'Will be start in 10 seconds! 5 questions.'});
-            setTimeout(() => io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: '3 ...'}), 7000);
-            setTimeout(() => io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: '2 ...'}), 8000);
-            setTimeout(() => io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: '1 ...'}), 9000);
-            setTimeout(() => {
-                console.log('THIS IS A MESSAGE', room[data.room].binarist.questions[0].message);
-                io.sockets.to(data.room).emit('submit', room[data.room].binarist.questions[0].message);
-                room[data.room].binarist.start = true;
 
-                fs.writeFileSync('./json/room.json', JSON.stringify(room));
+            setTimeout(() => isExistenceRoom(data.room) && io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: '3 ...'}), 7000);
+            setTimeout(() => isExistenceRoom(data.room) && io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: '2 ...'}), 8000);
+            setTimeout(() => isExistenceRoom(data.room) && io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: '1 ...'}), 9000);
+            setTimeout(() => {
+                if (isExistenceRoom(data.room)) {
+                    io.sockets.to(data.room).emit('submit', room[data.room].binarist.questions[0].message);
+                    room[data.room].binarist.start = true;
+
+                    fs.writeFileSync('./json/room.json', JSON.stringify(room));
+                }
             }, 10000);
-        } else if (room[data.room].binarist.start == true) {
-            // console.log('called');
-            if (room[data.room].binarist.questions[0].answer == data.message) {
+        } else if (room[data.room].binarist.start == true && room[data.room].binarist.questions[0].answer == data.message) {
+            // if (room[data.room].binarist.questions[0].answer == data.message) {
                 room[data.room].binarist.questions.shift();
                 if (room[data.room].binarist.questions.length > 0) {
                     io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: `${data.name} You're correct! and Next.`});
@@ -153,13 +152,13 @@ io.sockets.on('connection', socket => {
                 } else {
                     io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: `${data.name} You're correct! Finish!`});
 
-                    room[data.room].binarist.play = false;
-                    room[data.room].binarist.start = false;
                     room[data.room].binarist.questions = [];
+                    room[data.room].binarist.start = false;
+                    room[data.room].binarist.play = false;
                 }
 
                 fs.writeFileSync('./json/room.json', JSON.stringify(room));
-            }
+            // }
         }
     });
 });
