@@ -1,3 +1,5 @@
+優秀賞を頂きました、ありがとございます。  
+
 eChatスタートガイド（使い方）は[こちらへ](https://github.com/JPNYKW/eChat#echat-スタートガイド)  
 
 # 初めに
