@@ -60,7 +60,7 @@ io.sockets.on('connection', socket => {
         fs.writeFileSync('./json/user.json', JSON.stringify(userList));
 
         socket.join(data.room);
-        io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: `${data.name} has connect.`});
+        io.sockets.to(data.room).emit('submit', {headline: 'system-log', message: `${data.name} has connected.`});
 
         fs.writeFileSync('./json/room.json', input.room);
 
